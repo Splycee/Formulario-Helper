@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Postulación Helper - Phantom</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #0d0d0d;
+      overflow-y: auto;
+    }
+
+    /* Fondo de video */
+    video.bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 20px;
+      width: 700px;
+      margin: 40px auto;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #8e44ad;
+      text-shadow: 0 0 12px #9b59b6;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #f1c40f;
+      margin-top: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background: #9b59b6;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #8e44ad;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo con video (puedes cambiar el link de YouTube/mp4 o poner una imagen con <img>) -->
+  <video autoplay muted loop class="bg">
+    <source src="https://cdn.coverr.co/videos/coverr-night-sky-stars-5173/1080p.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <h1>Postulación a Helper - Phantom</h1>
+    <form id="staffForm">
+      <h2>Información Básica</h2>
+      <label>👤 Nombre en Minecraft:</label>
+      <input type="text" name="nombre" required>
+
+      <label>🎂 Edad:</label>
+      <input type="number" name="edad" min="10" required>
+
+      <label>💬 Discord (usuario#0000):</label>
+      <input type="text" name="discord" required>
+
+      <label>🌎 País / Zona horaria:</label>
+      <input type="text" name="pais" required>
+
+      <h2>Experiencia</h2>
+      <label>📚 ¿Has sido staff en otros servidores? ¿Dónde?</label>
+      <textarea name="experiencia"></textarea>
+
+      <label>⌛ Disponibilidad (horas al día / semana):</label>
+      <input type="text" name="horas" required>
+
+      <h2>Motivación</h2>
+      <label>❓ ¿Por qué quieres ser Helper en Phantom?</label>
+      <textarea name="razon" required></textarea>
+
+      <label>🎯 ¿Qué crees que puedes aportar al servidor?</label>
+      <textarea name="aportar"></textarea>
+
+      <h2>Situaciones (Responde con detalle)</h2>
+      <label>⚖️ Un jugador insulta a otro en el chat, ¿qué harías?</label>
+      <textarea name="situacion1" required></textarea>
+
+      <label>🚨 Ves a un jugador con posible hacks, ¿cómo actuarías?</label>
+      <textarea name="situacion2" required></textarea>
+
+      <label>👥 Dos jugadores discuten y la situación escala, ¿qué haces?</label>
+      <textarea name="situacion3" required></textarea>
+
+      <label>💡 Un usuario nuevo no entiende cómo jugar, ¿cómo lo ayudarías?</label>
+      <textarea name="situacion4" required></textarea>
+
+      <label>📢 El servidor tiene un bug que explota economía, ¿qué harías?</label>
+      <textarea name="situacion5" required></textarea>
+
+      <h2>Extra</h2>
+      <label>✨ ¿Tienes habilidades especiales (edición, construcción, plugins)?</label>
+      <textarea name="skills"></textarea>
+
+      <label>📷 ¿Estarías dispuesto a grabar pruebas (screen/video) en casos de hacks?</label>
+      <select name="grabar" required>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
+      </select>
+
+      <label>⚔️ ¿Qué significa para ti ser un buen staff?</label>
+      <textarea name="definicion" required></textarea>
+
+      <button type="submit">Enviar Solicitud</button>
+    </form>
+  </div>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1420203901424242839/MQIU4loHJqTe4qUkyq1nlv3ohqAoM9UIyJG9sYUF8rfIg9rUQMmSRBzc99RIK8Tp1oBA; // ⚠️ Pega tu webhook aquí
+
+    document.getElementById("staffForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const fields = [];
+      for (const [key, value] of formData.entries()) {
+        fields.push({ name: key, value: value || "N/A" });
+      }
+
+      const data = {
+        username: "Postulación Phantom",
+        embeds: [{
+          title: "📋 Nueva Postulación a Helper",
+          color: 0x9b59b6,
+          fields: fields,
+          footer: { text: "Servidor Phantom - Postulaciones" }
+        }]
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }).then(() => {
+        alert("✅ Tu postulación ha sido enviada correctamente.");
+        e.target.reset();
+      }).catch(() => {
+        alert("❌ Hubo un error al enviar tu postulación.");
+      });
+    });
+  </script>
+</body>
+</html>
